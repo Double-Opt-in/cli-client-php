@@ -1,0 +1,4 @@
+# Cli client for Double Opt-in (PHP)
+[![Latest Stable Version](https://poser.pugx.org/Double-Opt-in/cli-client-php/v/stable.svg)](https://packagist.org/packages/Double-Opt-in/cli-client-php) [![Latest Unstable Version](https://poser.pugx.org/Double-Opt-in/cli-client-php/v/unstable.svg)](https://packagist.org/packages/Double-Opt-in/cli-client-php) [![License](https://poser.pugx.org/Double-Opt-in/cli-client-php/license.svg)](https://packagist.org/packages/Double-Opt-in/cli-client-php) [![Total Downloads](https://poser.pugx.org/Double-Opt-in/cli-client-php/downloads.svg)](https://packagist.org/packages/Double-Opt-in/cli-client-php)
+
+DO NOT USE THIS RIGHT NOW. WE ARE STILL ON DEVELOPMENT!!!

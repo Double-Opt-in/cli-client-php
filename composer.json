@@ -1,0 +1,27 @@
+{
+	"name": "Double-Opt-in/php-cli",
+	"description": "This is a client api for command line as a reference implementation for the Double-Opt-in client api.",
+	"minimum-stability": "stable",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Robert Kummer",
+			"email": "rok@ipunkt.biz"
+		}
+	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/Double-Opt-in/php-client-api"
+		}
+	],
+	"require": {
+		"symfony/console": "~2.5",
+		"double-opt-in/php-client-api": "*@dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"DoubleOptIn\\PhpCli\\": "src"
+		}
+	}
+}
