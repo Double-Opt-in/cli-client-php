@@ -16,15 +16,15 @@ class LogCommand extends ClientApiCommand
 	{
 		$this->setName('log')
 			->setDescription('Logs an action')
+			->addArgument('action', InputArgument::REQUIRED, 'action to log for email [e.g. register, approved; lowercased actions recommended]')
 			->addArgument('email', InputArgument::REQUIRED, 'email to log')
-			->addOption('action', 'a', InputOption::VALUE_REQUIRED, 'action to log for email')
-			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for logging', '');
+			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for logging [e.g. newsletter, webspecial; lowercased scopes recommended]', '');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$hash = $input->getArgument('email');
-		$action = $input->getOption('action');
+		$action = $input->getArgument('action');
 		$scope = $input->getOption('scope');
 
 		$command = new \DoubleOptIn\ClientApi\Client\Commands\LogCommand($hash, $action, $scope);
