@@ -1,6 +1,8 @@
 <?php namespace DoubleOptIn\PhpCli\Console\Command;
 
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -18,7 +20,10 @@ class ActionsCommand extends ClientApiCommand
 	protected function configure()
 	{
 		$this->setName('actions')
-			->setDescription('Get all actions');
+			->setDescription('Get all actions for an email')
+			->addArgument('email', InputArgument::REQUIRED, 'email to look for')
+			->addOption('action', 'a', InputOption::VALUE_OPTIONAL, 'action for filtering the entries returned [use "-" to set the action to an empty filter]', null)
+			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for filtering the entries returned [use "-" to set the scope to an empty filter]', null);
 	}
 
 	/**
@@ -31,6 +36,17 @@ class ActionsCommand extends ClientApiCommand
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$output->writeln(print_r($this->client()->send(new \DoubleOptIn\ClientApi\Client\Commands\ActionsCommand()), true));
+		$email = $input->getArgument('email');
+		$action = $input->getOption('action');
+		$scope = $input->getOption('scope');
+
+		if ($action === '-')
+			$action = '';
+		if ($scope === '-')
+			$scope = '';
+
+		$command = new \DoubleOptIn\ClientApi\Client\Commands\ActionsCommand($email, $action, $scope);
+
+		$output->writeln(print_r($this->client()->send($command), true));
 	}
 }
