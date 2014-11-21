@@ -8,12 +8,7 @@ use DoubleOptIn\PhpCli\Console\Command\LogCommand;
 use DoubleOptIn\PhpCli\Console\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 
-$apiEndpoint = 'http://localhost:8000';
-$siteToken = '';
-$clientId = '';
-$clientSecret = '';
-
-$config = new DoubleOptIn\ClientApi\Config\ClientConfig($clientId, $clientSecret, $siteToken, $apiEndpoint);
+$config = \DoubleOptIn\ClientApi\Config\ConfigFactory::fromFile(__DIR__.'/config.php');
 
 $client = new DoubleOptIn\ClientApi\Client\Api($config);
 
