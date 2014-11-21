@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * Class ClientApiCommand
  *
- *
+ * Base api client command
  *
  * @package Console\Command
  */
