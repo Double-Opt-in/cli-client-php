@@ -1,5 +1,5 @@
 {
-	"name": "Double-Opt-in/php-cli",
+	"name": "double-opt-in/php-cli",
 	"description": "This is a client api for command line as a reference implementation for the Double-Opt-in client api.",
 	"minimum-stability": "stable",
 	"license": "MIT",
