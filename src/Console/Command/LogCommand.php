@@ -46,6 +46,16 @@ class LogCommand extends ClientApiCommand
 		if ( ! empty($data))
 			$command->setData($data);
 
-		$output->writeln(print_r($this->client()->send($command), true));
+		$response = $this->client()->send($command);
+
+		if ($response->fails()) {
+			$output->writeln($response->errorMessage());
+			return;
+		}
+
+		$output->writeln($response->toString());
+
+		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE)
+			$output->writeln((string)$response->limiter());
 	}
 }
