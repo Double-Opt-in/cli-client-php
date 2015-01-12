@@ -54,7 +54,7 @@ class LogCommand extends ClientApiCommand
 
 		$action = $response->action();
 		if ($action !== null)
-			$output->writeln('User is logged with action: ' . $action->getAction());
+			$output->writeln('User is logged with action: <info>' . $action->getAction() . '</info>');
 
 		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE)
 			$output->writeln((string)$response->limiter());

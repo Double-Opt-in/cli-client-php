@@ -43,11 +43,13 @@ class ValidateCommand extends ClientApiCommand
 		$response = $this->client()->send($command);
 
 		if ($response->fails()) {
-			$output->writeln($response->errorMessage());
+			$output->writeln('<error>' . $response->errorMessage() . '</error>');
 			return;
 		}
 
-		$output->writeln($response->toString());
+		$action = $response->action();
+		if ($action !== null)
+			$output->writeln('User is logged with action state <info>' . $action->getState() . '</info>');
 
 		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE)
 			$output->writeln((string)$response->limiter());
