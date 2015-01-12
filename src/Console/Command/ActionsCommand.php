@@ -50,11 +50,25 @@ class ActionsCommand extends ClientApiCommand
 		$response = $this->client()->send($command);
 
 		if ($response->fails()) {
-			$output->writeln($response->errorMessage());
+			$output->writeln('<error>' . $response->errorMessage() . '</error>');
 			return;
 		}
 
-		$output->writeln($response->toString());
+		/** @var \Symfony\Component\Console\Helper\TableHelper $table */
+		$table = $this->getHelper('table');
+		$table->setHeaders(['created at', 'action', 'scope', 'data']);
+
+		$crypto = $this->client()->getCryptographyEngine();
+
+		foreach ($response->all() as $action)
+			$table->addRow([
+				$action->getCreatedAt()->format('Y-m-d H:i:s'),
+				$action->getAction(),
+				$action->getScope(),
+				$crypto->decrypt($action->getData(), $email),
+			]);
+
+		$table->render($output);
 
 		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE)
 			$output->writeln((string)$response->limiter());
