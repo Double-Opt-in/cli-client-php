@@ -56,7 +56,7 @@ class ActionsCommand extends ClientApiCommand
 
 		/** @var \Symfony\Component\Console\Helper\TableHelper $table */
 		$table = $this->getHelper('table');
-		$table->setHeaders(['created at', 'action', 'scope', 'data']);
+		$table->setHeaders(['created at', 'action', 'scope', 'data', 'ip', 'useragent']);
 
 		$crypto = $this->client()->getCryptographyEngine();
 
@@ -66,6 +66,8 @@ class ActionsCommand extends ClientApiCommand
 				$action->getAction(),
 				$action->getScope(),
 				$crypto->decrypt($action->getData(), $email),
+				$action->getIp(),
+				$action->getUseragent()
 			]);
 
 		$table->render($output);

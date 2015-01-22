@@ -24,7 +24,10 @@ class LogCommand extends ClientApiCommand
 			->addArgument('action', InputArgument::REQUIRED, 'action to log for email [e.g. register, approved; lowercased actions recommended]')
 			->addArgument('email', InputArgument::REQUIRED, 'email to log')
 			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for logging [e.g. newsletter, webspecial; lowercased scopes recommended]', '')
-			->addOption('data', 'd', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'data assigned to the logging action');
+			->addOption('data', 'd', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'data assigned to the logging action')
+			->addOption('ip', null, InputOption::VALUE_OPTIONAL, 'ip overwrite')
+			->addOption('useragent', null, InputOption::VALUE_OPTIONAL, 'useragent overwrite')
+			->addOption('created', null, InputOption::VALUE_OPTIONAL, 'created at overwrite: "YYYY-MM-DD HH:ii:ss"');
 	}
 
 	/**
@@ -45,6 +48,10 @@ class LogCommand extends ClientApiCommand
 		$command = new \DoubleOptIn\ClientApi\Client\Commands\LogCommand($hash, $action, $scope);
 		if ( ! empty($data))
 			$command->setData($data);
+
+		$command->setIp($input->getOption('ip'))
+			->setUseragent($input->getOption('useragent'))
+			->setCreatedAt($input->getOption('created'));
 
 		$response = $this->client()->send($command);
 		if ($response->fails()) {
