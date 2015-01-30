@@ -58,16 +58,23 @@ class ActionsCommand extends ClientApiCommand
 		$table = $this->getHelper('table');
 		$table->setHeaders(['created at', 'action', 'scope', 'data', 'ip', 'useragent']);
 
-		$crypto = $this->client()->getCryptographyEngine();
-
 		foreach ($response->all() as $action)
+
+			$data = $action->getData();
+			if (strlen($data) > 30)
+				$data = substr($data, 0, 30) . '.. [' . strlen($data) . ']';
+
+			$useragent = $action->getUseragent();
+			if (strlen($useragent) > 20)
+				$useragent = substr($useragent, 0, 20) . '.. [' . strlen($useragent) . ']';
+
 			$table->addRow([
 				$action->getCreatedAt()->format('Y-m-d H:i:s'),
 				$action->getAction(),
 				$action->getScope(),
-				$crypto->decrypt($action->getData(), $email),
+				$data,
 				$action->getIp(),
-				$action->getUseragent()
+				$useragent,
 			]);
 
 		$table->render($output);
