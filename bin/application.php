@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use DoubleOptIn\PhpCli\Console\Command\ActionsCommand;
 use DoubleOptIn\PhpCli\Console\Command\LogCommand;
+use DoubleOptIn\PhpCli\Console\Command\StatusCommand;
 use DoubleOptIn\PhpCli\Console\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 
@@ -17,4 +18,5 @@ $application = new Application('Double Opt-in cli', '1.0.0');
 $application->add(new ActionsCommand($client));
 $application->add(new LogCommand($client));
 $application->add(new ValidateCommand($client));
+$application->add(new StatusCommand($client));
 $application->run();
