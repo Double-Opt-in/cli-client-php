@@ -78,3 +78,35 @@ Validate an email:
 
 	$> ./vendor/bin/doi-cli validate test@example.com
 
+#### Status request
+
+Getting help for the command:
+
+	$> ./vendor/bin/doi-cli help status
+
+Retrieving status information:
+
+	$> ./vendor/bin/doi-cli status
+
+Possible Result can be like this:
+
+	+---------------------+----------------------+
+    | key                 | value                |
+    +---------------------+----------------------+
+    | site                | double-opt.in ipunkt |
+    | type                | premium              |
+    | storage_time        | 315360000            |
+    | credits             | 10857964             |
+    | soft_quota          | 5000                 |
+    | hard_quota          | -2500                |
+    | daily_credits_usage | 253                  |
+    | unique_hashes       | 17563                |
+    +---------------------+----------------------+
+
+
+### The extra sugar
+
+If you add the verbose flag `-v` to a command you can get the current rate limiting information as well.
+E.g.:
+
+	999 / 1000 (new reset in 60 seconds)
