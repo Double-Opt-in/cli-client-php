@@ -10,6 +10,7 @@ use DoubleOptIn\PhpCli\Console\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 
 $config = \DoubleOptIn\ClientApi\Config\ConfigFactory::fromFile(__DIR__.'/config.php');
+$config->setAccessTokenCacheFile('/tmp/access_token');
 //$config->setHttpClientConfig(['verify' => false]);
 
 $client = new DoubleOptIn\ClientApi\Client\Api($config);
