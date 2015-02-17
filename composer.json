@@ -11,7 +11,7 @@
   ],
   "require": {
     "symfony/console": "~2.5",
-    "double-opt-in/php-client-api": "~1.4"
+    "double-opt-in/php-client-api": "~1.5"
   },
   "autoload": {
     "psr-4": {
