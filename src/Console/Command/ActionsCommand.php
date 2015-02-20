@@ -64,11 +64,11 @@ class ActionsCommand extends ClientApiCommand
 		foreach ($response->all() as $action) {
 
 			$data = $action->getData();
-			if ( ! $full && strlen($data) > 30)
+			if ( ! $full && strlen($data) > 37)
 				$data = substr($data, 0, 30) . '.. [' . strlen($data) . ']';
 
 			$useragent = $action->getUseragent();
-			if ( ! $full && strlen($useragent) > 20)
+			if ( ! $full && strlen($useragent) > 27)
 				$useragent = substr($useragent, 0, 20) . '.. [' . strlen($useragent) . ']';
 
 			$table->addRow([
