@@ -23,7 +23,8 @@ class ActionsCommand extends ClientApiCommand
 			->setDescription('Get all actions for an email')
 			->addArgument('email', InputArgument::REQUIRED, 'email to look for')
 			->addOption('action', 'a', InputOption::VALUE_OPTIONAL, 'action for filtering the entries returned [use "-" to set the action to an empty filter]', null)
-			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for filtering the entries returned [use "-" to set the scope to an empty filter]', null);
+			->addOption('scope', 's', InputOption::VALUE_OPTIONAL, 'scope for filtering the entries returned [use "-" to set the scope to an empty filter]', null)
+			->addOption('full', 'f', InputOption::VALUE_NONE, 'display full data and useragent string');
 	}
 
 	/**
@@ -39,6 +40,7 @@ class ActionsCommand extends ClientApiCommand
 		$email = $input->getArgument('email');
 		$action = $input->getOption('action');
 		$scope = $input->getOption('scope');
+		$full = $input->getOption('full');
 
 		if ($action === '-')
 			$action = '';
@@ -51,6 +53,7 @@ class ActionsCommand extends ClientApiCommand
 
 		if ($response->fails()) {
 			$output->writeln('<error>' . $response->errorMessage() . '</error>');
+
 			return;
 		}
 
@@ -61,11 +64,11 @@ class ActionsCommand extends ClientApiCommand
 		foreach ($response->all() as $action) {
 
 			$data = $action->getData();
-			if (strlen($data) > 30)
+			if ( ! $full && strlen($data) > 30)
 				$data = substr($data, 0, 30) . '.. [' . strlen($data) . ']';
 
 			$useragent = $action->getUseragent();
-			if (strlen($useragent) > 20)
+			if ( ! $full && strlen($useragent) > 20)
 				$useragent = substr($useragent, 0, 20) . '.. [' . strlen($useragent) . ']';
 
 			$table->addRow([
