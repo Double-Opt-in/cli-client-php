@@ -58,7 +58,7 @@ class ActionsCommand extends ClientApiCommand
 		$table = $this->getHelper('table');
 		$table->setHeaders(['created at', 'action', 'scope', 'data', 'ip', 'useragent']);
 
-		foreach ($response->all() as $action)
+		foreach ($response->all() as $action) {
 
 			$data = $action->getData();
 			if (strlen($data) > 30)
@@ -76,6 +76,7 @@ class ActionsCommand extends ClientApiCommand
 				$action->getIp(),
 				$useragent,
 			]);
+		}
 
 		$table->render($output);
 
